@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/umathomprakash09/appointment-booking-backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "firebase-admin": "^13.0.2"
   }

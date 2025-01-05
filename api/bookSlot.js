@@ -1,6 +1,12 @@
 const admin = require("firebase-admin");
 require("dotenv").config();
+const cors = require("cors");
 
+const corsMiddleware = cors({
+  origin: process.env.ALLOWED_ORIGIN,
+  methods: ["GET", "POST"],
+  credentials: true,
+});
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -15,7 +21,8 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 module.exports = async (req, res) => {
-  const { date, time, userId } = req.body;
+ corsMiddleware(req,res,async()=>{
+    const { date, time, userId } = req.body;
 
   if (!date || !time || !userId) {
     return res.status(400).json({ message: "Date, time, and userId are required" });
@@ -40,4 +47,6 @@ module.exports = async (req, res) => {
     console.error("Error booking slot:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+ })
+  
 };

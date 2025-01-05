@@ -1,6 +1,14 @@
 const admin = require("firebase-admin");
 require("dotenv").config();
 
+const cors = require("cors");
+
+const corsMiddleware = cors({
+  origin: process.env.ALLOWED_ORIGIN,
+  methods: ["GET", "POST"],
+  credentials: true,
+});
+
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({
@@ -14,7 +22,8 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 module.exports = async (req, res) => {
-  const { date } = req.query;
+ corsMiddleware(req,res, async()=>{
+    const { date } = req.query;
 
   if (!date) {
     return res.status(400).json({ message: "Date is required" });
@@ -33,4 +42,6 @@ module.exports = async (req, res) => {
     console.error("Error fetching slots:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+ })
+  
 };

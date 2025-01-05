@@ -3,7 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 
 const corsMiddleware = cors({
-  origin: process.env.ALLOWED_ORIGIN,
+  origin: process.env.ALLOWED_ORIGIN || "http://localhost:3000",
   methods: ["GET", "POST"],
   credentials: true,
 });

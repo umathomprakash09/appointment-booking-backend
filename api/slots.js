@@ -5,8 +5,7 @@ const cors = require("cors");
 
 const corsMiddleware = cors({
   origin: process.env.ALLOWED_ORIGIN || "http://localhost:3000",
-  methods: ["GET", "POST"],
-  credentials: true,
+  methods: ["GET", "POST"]
 });
 
 if (!admin.apps.length) {

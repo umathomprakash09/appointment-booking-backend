@@ -21,9 +21,10 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 module.exports = async (req, res) => {
+  console.log('Outside cors');
  corsMiddleware(req,res, async()=>{
     const { date } = req.query;
-
+  console.log('Inside cors ',date);
   if (!date) {
     return res.status(400).json({ message: "Date is required" });
   }
